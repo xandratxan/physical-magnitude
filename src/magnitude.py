@@ -11,7 +11,7 @@ class Magnitude:
 
     def __repr__(self):
         # TODO: multiply relative uncertainty by 100
-        return f'{self.value} \u00B1 {self.uncertainty} {self.unit} ({self.relative_uncertainty}%)'
+        return f'{self.value} \u00B1 {self.uncertainty} {self.unit} ({self.relative_uncertainty * 100}%)'
 
     def __add__(self, other):
         if self.unit == other.unit:
