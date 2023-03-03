@@ -28,3 +28,17 @@ def test_define_magnitude_with_no_uncertainty():
     with pytest.raises(TypeError) as exc:
         mag.Magnitude(value=20, unit='m')
     assert 'Magnitudes must have uncertainties.' in str(exc.value)
+
+
+def test_sum_magnitudes_same_units():
+    m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
+    m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
+    assert str(m1 + m2) == '30 ± 2.23606797749979 m (0.07453559924999299%)'
+
+
+def test_sum_magnitudes_different_units():
+    with pytest.raises(TypeError) as exc:
+        m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
+        m2 = mag.Magnitude(value=20, unit='cm', uncertainty=2)
+        m1 + m2
+    assert 'Added magnitudes must have the same units.' in str(exc.value)
