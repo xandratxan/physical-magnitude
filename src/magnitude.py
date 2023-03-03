@@ -22,6 +22,15 @@ class Magnitude:
         else:
             raise TypeError('Added magnitudes must have the same units.')
 
+    def __sub__(self, other):
+        if self.unit == other.unit:
+            value = self.value - other.value
+            uncertainty = sqrt(self.uncertainty ** 2 + other.uncertainty ** 2)
+            magnitude = Magnitude(value=value, unit=self.unit, uncertainty=uncertainty)
+            return magnitude
+        else:
+            raise TypeError('Subtracted magnitudes must have the same units.')
+
     def complete_uncertainties(self):
         if self.uncertainty:
             if self.relative_uncertainty:

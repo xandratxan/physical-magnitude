@@ -24,12 +24,22 @@ try:
 except TypeError as exc:
     print(f'Raised {type(exc).__name__}: {exc}')
 
-# Sum of magnitudes with the same or different units
+# Operations with magnitudes
+
 m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
 m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
 m3 = mag.Magnitude(value=20, unit='cm', uncertainty=2)
+
+# Sum of magnitudes with the same or different units
 print(m1 + m2)
 try:
     print(m1 + m3)
+except TypeError as exc:
+    print(f'Raised {type(exc).__name__}: {exc}')
+
+# Subtraction of magnitudes with the same or different units
+print(m2 - m1)
+try:
+    print(m2 - m3)
 except TypeError as exc:
     print(f'Raised {type(exc).__name__}: {exc}')
