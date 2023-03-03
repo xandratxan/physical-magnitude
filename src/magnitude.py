@@ -10,7 +10,6 @@ class Magnitude:
         self.complete_uncertainties()
 
     def __repr__(self):
-        # TODO: multiply relative uncertainty by 100
         return f'{self.value} \u00B1 {self.uncertainty} {self.unit} ({self.relative_uncertainty * 100}%)'
 
     def __add__(self, other):
@@ -38,7 +37,22 @@ class Magnitude:
         magnitude = Magnitude(value=value, unit=unit, relative_uncertainty=relative_uncertainty)
         return magnitude
 
+    def __truediv__(self, other):
+        # IMPORTANT: as magnitudes with value zero cannot be defined, this method will never raise a ZeroDivisionError
+        # exception.
+        value = self.value / other.value
+        unit = f'{self.unit}/{other.unit}'
+        relative_uncertainty = sqrt(self.relative_uncertainty ** 2 + other.relative_uncertainty ** 2)
+        magnitude = Magnitude(value=value, unit=unit, relative_uncertainty=relative_uncertainty)
+        return magnitude
+
     def complete_uncertainties(self):
+        # Magnitudes must have value, uncertainty and unit.
+        # TODO Magnitudes without uncertainties may be defined with zero uncertainty.
+        # If absolute uncertainty is provided, relative uncertainty will be calculated, and vice versa.
+        # If both uncertainties are provided, the agreement between values will be checked.
+        # IMPORTANT: magnitudes with value zero cannot be defined: relative uncertainty would be infinite and a
+        # ZeroDivisionError exception would be raised.
         if self.uncertainty:
             if self.relative_uncertainty:
                 # if uncertainty=X, relative_uncertainty=X: check good agreement between uncertainties
@@ -54,3 +68,5 @@ class Magnitude:
             else:
                 # if uncertainty=None, relative_uncertainty=None: ?
                 raise TypeError('Magnitudes must have uncertainties.')
+        if self.uncertainty < 0 or self.relative_uncertainty < 0:
+            raise ValueError('Uncertainties must be positive.')

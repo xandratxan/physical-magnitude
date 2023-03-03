@@ -30,6 +30,18 @@ def test_define_magnitude_with_no_uncertainty():
     assert 'Magnitudes must have uncertainties.' in str(exc.value)
 
 
+def test_define_magnitude_with_negative_uncertainty():
+    with pytest.raises(ValueError) as exc:
+        mag.Magnitude(value=20, unit='m', uncertainty=-2)
+    assert 'Uncertainties must be positive.' in str(exc.value)
+
+
+def test_define_magnitude_with_negative_relative_uncertainty():
+    with pytest.raises(ValueError) as exc:
+        mag.Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
+    assert 'Uncertainties must be positive.' in str(exc.value)
+
+
 def test_sum_magnitudes_same_units():
     m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
     m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
@@ -62,3 +74,9 @@ def test_multiply_magnitudes():
     m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
     m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
     assert str(m1 * m2) == '200 ± 28.284271247461906 m·m (14.142135623730953%)'
+
+
+def test_divide_magnitudes():
+    m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
+    m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
+    assert str(m2 / m1) == '2.0 ± 0.28284271247461906 m/m (14.142135623730953%)'

@@ -24,6 +24,16 @@ try:
 except TypeError as exc:
     print(f'Raised {type(exc).__name__}: {exc}')
 
+# Magnitude with negative uncertainties
+try:
+    m = mag.Magnitude(value=20, unit='m', uncertainty=-2)
+except ValueError as exc:
+    print(f'Raised {type(exc).__name__}: {exc}')
+try:
+    m = mag.Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
+except ValueError as exc:
+    print(f'Raised {type(exc).__name__}: {exc}')
+
 # Operations with magnitudes
 
 m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
@@ -46,3 +56,6 @@ except TypeError as exc:
 
 # Multiplication of magnitudes
 print(m1 * m2)
+
+# Division of magnitudes
+print(m2 / m1)
