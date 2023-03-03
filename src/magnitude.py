@@ -31,6 +31,13 @@ class Magnitude:
         else:
             raise TypeError('Subtracted magnitudes must have the same units.')
 
+    def __mul__(self, other):
+        value = self.value * other.value
+        unit = f'{self.unit}·{other.unit}'
+        relative_uncertainty = sqrt(self.relative_uncertainty ** 2 + other.relative_uncertainty ** 2)
+        magnitude = Magnitude(value=value, unit=unit, relative_uncertainty=relative_uncertainty)
+        return magnitude
+
     def complete_uncertainties(self):
         if self.uncertainty:
             if self.relative_uncertainty:

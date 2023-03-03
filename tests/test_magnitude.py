@@ -47,7 +47,7 @@ def test_sum_magnitudes_different_units():
 def test_subtract_magnitudes_same_units():
     m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
     m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
-    assert str(m1 - m2) == '30 ± 2.23606797749979 m (0.07453559924999299%)'
+    assert str(m2 - m1) == '10 ± 2.23606797749979 m (0.223606797749979%)'
 
 
 def test_subtract_magnitudes_different_units():
@@ -55,4 +55,10 @@ def test_subtract_magnitudes_different_units():
         m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
         m2 = mag.Magnitude(value=20, unit='cm', uncertainty=2)
         m1 - m2
-    assert 'Added magnitudes must have the same units.' in str(exc.value)
+    assert 'Subtracted magnitudes must have the same units.' in str(exc.value)
+
+
+def test_multiply_magnitudes():
+    m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
+    m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)
+    assert str(m1 * m2) == '200 ± 28.284271247461906 m·m (0.14142135623730953%)'

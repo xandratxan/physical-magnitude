@@ -43,3 +43,6 @@ try:
     print(m2 - m3)
 except TypeError as exc:
     print(f'Raised {type(exc).__name__}: {exc}')
+
+# Multiplication of magnitudes
+print(m1 * m2)
