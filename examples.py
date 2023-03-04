@@ -34,6 +34,13 @@ try:
 except ValueError as exc:
     print(f'Raised {type(exc).__name__}: {exc}')
 
+# Magnitude without uncertainty
+m = mag.Magnitude(value=20, unit='m', uncertainty=0)
+print(m)
+
+m = mag.Magnitude(value=20, unit='m', relative_uncertainty=0)
+print(m)
+
 # Operations with magnitudes
 
 m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)

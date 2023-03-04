@@ -42,6 +42,16 @@ def test_define_magnitude_with_negative_relative_uncertainty():
     assert 'Uncertainties must be positive.' in str(exc.value)
 
 
+def test_define_magnitude_with_zero_uncertainty():
+    m = mag.Magnitude(value=20, unit='m', uncertainty=0)
+    assert str(m) == '20 ± 0 m (0.0%)'
+
+
+def test_define_magnitude_with_zero_relative_uncertainty():
+    m = mag.Magnitude(value=20, unit='m', relative_uncertainty=0)
+    assert str(m) == '20 ± 0 m (0%)'
+
+
 def test_sum_magnitudes_same_units():
     m1 = mag.Magnitude(value=10, unit='m', uncertainty=1)
     m2 = mag.Magnitude(value=20, unit='m', uncertainty=2)

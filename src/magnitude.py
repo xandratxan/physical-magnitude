@@ -48,13 +48,13 @@ class Magnitude:
 
     def complete_uncertainties(self):
         # Magnitudes must have value, uncertainty and unit.
-        # TODO Magnitudes without uncertainties may be defined with zero uncertainty.
+        # Magnitudes without uncertainties may be defined with zero uncertainty.
         # If absolute uncertainty is provided, relative uncertainty will be calculated, and vice versa.
         # If both uncertainties are provided, the agreement between values will be checked.
         # IMPORTANT: magnitudes with value zero cannot be defined: relative uncertainty would be infinite and a
         # ZeroDivisionError exception would be raised.
-        if self.uncertainty:
-            if self.relative_uncertainty:
+        if self.uncertainty is not None:
+            if self.relative_uncertainty is not None:
                 # if uncertainty=X, relative_uncertainty=X: check good agreement between uncertainties
                 if self.relative_uncertainty != self.uncertainty / self.value:
                     raise ValueError('Absolute and relative uncertainties do not match.')
@@ -62,7 +62,7 @@ class Magnitude:
                 # if uncertainty=X, relative_uncertainty=None: compute relative uncertainty
                 self.relative_uncertainty = self.uncertainty / self.value
         else:
-            if self.relative_uncertainty:
+            if self.relative_uncertainty is not None:
                 # if uncertainty=None, relative_uncertainty=X: compute absolute uncertainty
                 self.uncertainty = self.value * self.relative_uncertainty
             else:
