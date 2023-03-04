@@ -1,6 +1,6 @@
 import pytest
 
-import src.magnitude as mag
+import magnitude.magnitude as mag
 
 
 def test_define_magnitude_with_absolute_uncertainty():

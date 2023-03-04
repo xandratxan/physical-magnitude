@@ -1,4 +1,4 @@
-import src.magnitude as mag
+import magnitude.magnitude as mag
 
 # Magnitudes definition
 
