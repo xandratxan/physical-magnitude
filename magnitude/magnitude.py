@@ -51,8 +51,7 @@ class Magnitude:
         # Magnitudes without uncertainties may be defined with zero uncertainty.
         # If absolute uncertainty is provided, relative uncertainty will be calculated, and vice versa.
         # If both uncertainties are provided, the agreement between values will be checked.
-        # IMPORTANT: magnitudes with value zero cannot be defined: relative uncertainty would be infinite and a
-        # ZeroDivisionError exception would be raised.
+        # TODO: magnitudes with value zero and uncertainty cannot be defined, but they can with relative uncertainty.
         if self.uncertainty is not None:
             if self.relative_uncertainty is not None:
                 # if uncertainty=X, relative_uncertainty=X: check good agreement between uncertainties
