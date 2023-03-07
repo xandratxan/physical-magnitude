@@ -12,6 +12,12 @@ Available operations include summation, subtraction, multiplication and division
 
 Installation for local usage:
 
+```bash
+git clone git@github.com:xandratxan/magnitudes.git
+cd magnitudes
+pip install .
+```
+
 ## Usage examples
 
 ### Defining a magnitude
@@ -20,21 +26,21 @@ Installation for local usage:
 
 Magnitudes are defined as instantiations of the class ``Magnitude``.
 
-```
+```python
 from magnitude.magnitude import Magnitude
 ```
 
 Magnitudes must have value, uncertainty and unit.
 If absolute uncertainty is provided, relative uncertainty will be calculated:
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=2)
 20 ± 2 m (10.0%)
 ```
 
 If relative uncertainty is provided, absolute uncertainty will be calculated:
 
-```
+```python
 Magnitude(value=30, unit='m', relative_uncertainty=0.1)
 30 ± 3.0 m (10.0%)
 ```
@@ -42,14 +48,14 @@ Magnitude(value=30, unit='m', relative_uncertainty=0.1)
 If both uncertainties are provided, the agreement between values will be checked.
 If both uncertainties are equivalent, the magnitude will be defined correctly:
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=2, relative_uncertainty=0.1)
 20 ± 2 m (10.0%)
 ```
 
 If both uncertainties are not equivalent, an exception will be raised:
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -64,17 +70,17 @@ ValueError: Absolute and relative uncertainties do not match.
 
 Magnitudes without uncertainties may be defined with zero uncertainty.
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=0)
 20 ± 0 m (0.0%)
 ```
 
-```
+```python
 Magnitude(value=20, unit='m', relative_uncertainty=0)
 20 ± 0 m (0%)
 ```
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
 20 ± 0 m (0%)
 ```
@@ -83,7 +89,7 @@ Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
 
 Magnitudes must have uncertainties. They cannot be defined with no uncertainties:
 
-```
+```python
 Magnitude(value=10, unit='m')
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -98,7 +104,7 @@ TypeError: Magnitudes must have uncertainties.
 
 Magnitudes cannot be defined with negative uncertainties, since it have no physical meaning:
 
-```
+```python
 Magnitude(value=20, unit='m', uncertainty=-2)
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -111,7 +117,7 @@ Traceback (most recent call last):
 ValueError: Uncertainties must be positive.
 ```
 
-```
+```python
 Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -126,7 +132,7 @@ ValueError: Uncertainties must be positive.
 
 Magnitudes with exact value of zero cannot be defined, since relative uncertainty would be infinite.
 
-```
+```python
 Magnitude(value=0, unit='m', uncertainty=0.1)
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -139,7 +145,7 @@ Traceback (most recent call last):
 ZeroDivisionError: float division by zero
 ```
 
-```
+```python
 Magnitude(value=0, unit='m', relative_uncertainty=0.1)
 0 ± 0.0 m (10.0%)
 ```
@@ -148,7 +154,7 @@ Magnitude(value=0, unit='m', relative_uncertainty=0.1)
 
 First, define some magnitudes to operate with them:
 
-```
+```python
 m1 = Magnitude(value=10, unit='m', uncertainty=1)
 m2 = Magnitude(value=20, unit='m', uncertainty=2)
 m3 = Magnitude(value=20, unit='cm', uncertainty=2)
@@ -156,19 +162,19 @@ m3 = Magnitude(value=20, unit='cm', uncertainty=2)
 
 Magnitudes can be summed or subtracted as long as they have the same units:
 
-```
+```python
 m1 + m2
 30 ± 2.23606797749979 m (7.4535599249993%)
 ```
 
-```
+```python
 m2 - m1
 10 ± 2.23606797749979 m (22.360679774997898%)
 ```
 
 If they have different units, an exception will be raised:
 
-```
+```python
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
@@ -178,7 +184,7 @@ Traceback (most recent call last):
 TypeError: Added magnitudes must have the same units.
 ```
 
-```
+```python
 m2 - m3
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
@@ -192,12 +198,12 @@ TypeError: Subtracted magnitudes must have the same units.
 Magnitudes can be multiplied or divided independently of their units.
 The unit resulting from the product or the division will be the concatenation of the individual magnitudes:
 
-```
+```python
 m1 * m2
 200 ± 28.284271247461906 m·m (14.142135623730953%)
 ```
 
-```
+```python
 m2 / m1
 2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
 ```
