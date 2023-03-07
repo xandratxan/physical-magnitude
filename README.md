@@ -132,6 +132,7 @@ First, define some magnitudes to operate with them:
 m1 = Magnitude(value=10, unit='m', uncertainty=1)
 m2 = Magnitude(value=20, unit='m', uncertainty=2)
 m3 = Magnitude(value=20, unit='cm', uncertainty=2)
+m4 = Magnitude(value=20, unit='m²', uncertainty=2)
 ```
 
 Magnitudes can be summed or subtracted as long as they have the same units:
@@ -181,6 +182,47 @@ m1 * m2
 ```
 m2 / m1
 2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
+```
+
+Multiple magnitudes can be summed and/or subtracted as long as they have the same units:
+
+```
+m1 + m2 + m1 - m2
+20 ± 3.1622776601683795 m (15.811388300841896%)
+```
+
+Multiple magnitudes can be multiplied and/or divided independently of their units:
+
+```
+m1 * m2 / m3
+10.0 ± 1.7320508075688776 m·m/cm (17.320508075688775%)
+```
+
+However, combining summation/subtraction with product/division require some user work.
+Trying to do m1 * m2 + m4 will raise an error since the units of m1 * m2 are m·m while the units of m4 are m².
+
+```
+m1 * m2 + m4
+Traceback (most recent call last):
+  File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+    coro = func()
+  File "<input>", line 1, in <module>
+  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 68, in __add__
+    raise TypeError('Added magnitudes must have the same units.')
+TypeError: Added magnitudes must have the same units.
+```
+
+First, we need to define a new magnitude m as m1 * m2, then change the unit of m from m·m to m², and finally we can do m + m4 
+
+```
+m = m1 * m2
+m
+200 ± 28.284271247461906 m·m (14.142135623730953%)
+m.unit = 'm²'
+m
+200 ± 28.284271247461906 m² (14.142135623730953%)
+m + m4
+220 ± 28.354893757515654 m² (12.888588071598026%)
 ```
 
 ## Release History

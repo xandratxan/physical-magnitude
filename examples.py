@@ -60,6 +60,7 @@ print(m)
 m1 = Magnitude(value=10, unit='m', uncertainty=1)
 m2 = Magnitude(value=20, unit='m', uncertainty=2)
 m3 = Magnitude(value=20, unit='cm', uncertainty=2)
+m4 = Magnitude(value=20, unit='m²', uncertainty=2)
 # Magnitudes can be summed or subtracted as long as they have the same units:
 print(m1 + m2)
 print(m2 - m1)
@@ -76,5 +77,21 @@ except TypeError as exc:
 # The unit resulting from the product or the division will be the concatenation of the individual magnitudes:
 print(m1 * m2)
 print(m2 / m1)
-
-# TODO: Test concatenation of operations
+# The issue with units when combining operators
+# Multiple magnitudes can be summed and/or subtracted as long as they have the same units:
+print(m1 + m2 + m1 - m2)
+# Multiple magnitudes can be multiplied and/or divided independently of their units:
+print(m1 * m2 / m3)
+# However combining summation/subtraction with product/division require some user work.
+# Trying to do m1 * m2 + m4 will raise an error since the units of m1 * m2 are m·m while the units of m4 are m².
+try:
+    print(m1 * m2 + m4)
+except TypeError as exc:
+    print(f'Raised {type(exc).__name__}: {exc}')
+# First, we need to define a new magnitude m as m1 * m2, then change the unit of m from m·m to m²,
+# and finally we can do m + m4
+m = m1 * m2
+print(m)
+m.unit = 'm²'
+print(m)
+print(m + m4)
