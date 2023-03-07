@@ -1,5 +1,7 @@
-User guide
+User Guide
 ==========
+
+This page gives a good introduction in how to get started with ``magnitudes``.
 
 Installation
 ------------
@@ -8,6 +10,7 @@ Defining a magnitude
 --------------------
 
 How magnitudes can be defined
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Magnitudes are defined as instantiations of the class ``Magnitude``.
 
@@ -71,6 +74,7 @@ Magnitudes without uncertainties may be defined with zero uncertainty.
     20 ± 0 m (0%)
 
 How magnitudes cannot be defined
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Magnitudes must have uncertainties. They cannot be defined with no uncertainties:
 
@@ -146,6 +150,9 @@ First, define some magnitudes to operate with them:
     m2 = Magnitude(value=20, unit='m', uncertainty=2)
     m3 = Magnitude(value=20, unit='cm', uncertainty=2)
 
+Summation and subtraction
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Magnitudes can be summed or subtracted as long as they have the same units:
 
 .. code-block::
@@ -181,6 +188,9 @@ If they have different units, an exception will be raised:
       File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 31, in __sub__
         raise TypeError('Subtracted magnitudes must have the same units.')
     TypeError: Subtracted magnitudes must have the same units.
+
+Multiplication and division
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Magnitudes can be multiplied or divided independently of their units.
 The unit resulting from the product or the division will be the concatenation of the individual magnitudes:

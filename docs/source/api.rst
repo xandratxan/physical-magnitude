@@ -1,8 +1,18 @@
-API
-===
+API Reference
+=============
+
+This part of the documentation covers all the public interfaces of ``magnitudes``.
 
 .. autosummary::
-   :toctree: _autosummary
-   :recursive:
+    magnitude
+    magnitude.Magnitude
 
-   magnitude
+magnitude
+---------
+
+.. automodule:: magnitude
+
+magnitude.Magnitude
+-------------------
+
+.. autoclass:: magnitude.Magnitude
