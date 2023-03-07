@@ -19,5 +19,5 @@ Available operations include summation, subtraction, multiplication and division
    info
    usage
    api
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents
