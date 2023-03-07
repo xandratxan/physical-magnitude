@@ -6,11 +6,8 @@ This page gives a good introduction in how to get started with ``magnitudes``.
 Installation
 ------------
 
-Defining a magnitude
---------------------
-
-How magnitudes can be defined
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+How to define a magnitude
+-------------------------
 
 Magnitudes are defined as instantiations of the class ``Magnitude``.
 
@@ -73,8 +70,20 @@ Magnitudes without uncertainties may be defined with zero uncertainty.
     Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
     20 ± 0 m (0%)
 
-How magnitudes cannot be defined
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Magnitudes can defined with zero value, but they may be tricky: uncertainties may not have physical meaning.
+
+.. code-block::
+
+    Magnitude(value=0, unit='m', uncertainty=0.1)
+    0 ± 0.1 m (inf%)
+
+.. code-block::
+
+    Magnitude(value=0, unit='m', relative_uncertainty=0.1)
+    0 ± 0.0 m (10.0%)
+
+How not to define magnitude
+---------------------------
 
 Magnitudes must have uncertainties. They cannot be defined with no uncertainties:
 
@@ -119,28 +128,8 @@ Magnitudes cannot be defined with negative uncertainties, since it have no physi
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
-Magnitudes with exact value of zero cannot be defined, since relative uncertainty would be infinite.
-
-.. code-block::
-
-    Magnitude(value=0, unit='m', uncertainty=0.1)
-    Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
-        coro = func()
-      File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 63, in complete_uncertainties
-        self.relative_uncertainty = self.uncertainty / self.value
-    ZeroDivisionError: float division by zero
-
-.. code-block::
-
-    Magnitude(value=0, unit='m', relative_uncertainty=0.1)
-    0 ± 0.0 m (10.0%)
-
-Simple operations with magnitudes
----------------------------------
+Sum and subtract magnitudes
+---------------------------
 
 First, define some magnitudes to operate with them:
 
@@ -149,9 +138,6 @@ First, define some magnitudes to operate with them:
     m1 = Magnitude(value=10, unit='m', uncertainty=1)
     m2 = Magnitude(value=20, unit='m', uncertainty=2)
     m3 = Magnitude(value=20, unit='cm', uncertainty=2)
-
-Summation and subtraction
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Magnitudes can be summed or subtracted as long as they have the same units:
 
@@ -189,8 +175,8 @@ If they have different units, an exception will be raised:
         raise TypeError('Subtracted magnitudes must have the same units.')
     TypeError: Subtracted magnitudes must have the same units.
 
-Multiplication and division
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Multiply and divide magnitudes
+------------------------------
 
 Magnitudes can be multiplied or divided independently of their units.
 The unit resulting from the product or the division will be the concatenation of the individual magnitudes:
@@ -204,3 +190,58 @@ The unit resulting from the product or the division will be the concatenation of
 
     m2 / m1
     2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
+
+Combining summation/subtraction with product/division
+-----------------------------------------------------
+
+Multiple magnitudes can be summed and/or subtracted as long as they have the same units:
+
+.. code-block::
+
+    m1 + m2 + m1 - m2
+    20 ± 3.1622776601683795 m (15.811388300841896%)
+
+
+Multiple magnitudes can be multiplied and/or divided independently of their units:
+
+.. code-block::
+
+    m1 * m2 / m3
+    10.0 ± 1.7320508075688776 m·m/cm (17.320508075688775%)
+
+However, combining summation/subtraction with product/division require some units management.
+Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2`` are ``'m·m'`` while the units of ``m4`` are ``'m²'``.
+
+.. code-block::
+
+    m1 * m2 + m4
+    Traceback (most recent call last):
+      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+        coro = func()
+      File "<input>", line 1, in <module>
+      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 68, in __add__
+        raise TypeError('Added magnitudes must have the same units.')
+    TypeError: Added magnitudes must have the same units.
+
+First, we need to define a new magnitude ``m`` as ``m1 * m2``:
+
+.. code-block::
+
+    m = m1 * m2
+    m
+    200 ± 28.284271247461906 m·m (14.142135623730953%)
+
+Then, we need to change the unit of ``m`` from ``'m·m'`` to ``'m²'``:
+
+.. code-block::
+
+    m.unit = 'm²'
+    m
+    200 ± 28.284271247461906 m² (14.142135623730953%)
+
+Finally we can do ``m + m4``:
+
+.. code-block::
+
+    m + m4
+    220 ± 28.354893757515654 m² (12.888588071598026%)
