@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "magnitude"
+description = 'Package to perform simple operations with magnitudes including units and uncertainties.'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "GPL3"
+keywords = []
+dependencies = []
+version = "0.1.0"
+
+[project.urls]
+Documentation = "https://github.com/xandratxan/magnitudes#readme"
+Issues = "https://github.com/xandratxa/nmagnitudes/issues"
+Source = "https://github.com/xandratxan/magnitudes"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "sphinx",
+  "sphinx-rtd-theme",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/magnitude"]
