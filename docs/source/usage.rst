@@ -73,6 +73,18 @@ Magnitudes without uncertainties may be defined with zero uncertainty.
     Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
     20 ± 0 m (0%)
 
+Magnitudes can defined with zero value, but they may be tricky: uncertainties may not have physical meaning.
+
+.. code-block::
+
+    Magnitude(value=0, unit='m', uncertainty=0.1)
+    0 ± 0.1 m (inf%)
+
+.. code-block::
+
+    Magnitude(value=0, unit='m', relative_uncertainty=0.1)
+    0 ± 0.0 m (10.0%)
+
 How magnitudes cannot be defined
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -118,26 +130,6 @@ Magnitudes cannot be defined with negative uncertainties, since it have no physi
       File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 72, in complete_uncertainties
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
-
-Magnitudes with exact value of zero cannot be defined, since relative uncertainty would be infinite.
-
-.. code-block::
-
-    Magnitude(value=0, unit='m', uncertainty=0.1)
-    Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
-        coro = func()
-      File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 63, in complete_uncertainties
-        self.relative_uncertainty = self.uncertainty / self.value
-    ZeroDivisionError: float division by zero
-
-.. code-block::
-
-    Magnitude(value=0, unit='m', relative_uncertainty=0.1)
-    0 ± 0.0 m (10.0%)
 
 Simple operations with magnitudes
 ---------------------------------

@@ -44,17 +44,28 @@ class TestMagnitudeDefinition:
         m = Magnitude(value=20, unit='m', relative_uncertainty=0)
         assert str(m) == '20 ± 0 m (0%)'
 
+    def test_zero_value_and_uncertainty(self):
+        with pytest.warns(UserWarning):
+            m = Magnitude(value=0, unit='m', uncertainty=0.1)
+            assert str(m) == '0 ± 0.1 m (inf%)'
+
+    def test_zero_value_and_relative_uncertainty(self):
+        with pytest.warns(UserWarning):
+            m = Magnitude(value=0, unit='m', relative_uncertainty=0.1)
+            assert str(m) == '0 ± 0.0 m (10.0%)'
+
 
 class TestMagnitudeOperators:
     m1 = Magnitude(value=10, unit='m', uncertainty=1)
     m2 = Magnitude(value=20, unit='m', uncertainty=2)
+    m3 = Magnitude(value=20, unit='cm', uncertainty=2)
 
     def test_sum_same_units(self):
         assert str(self.m1 + self.m2) == '30 ± 2.23606797749979 m (7.4535599249993%)'
 
     def test_sum_different_units(self):
         with pytest.raises(TypeError) as exc:
-            self.m1 + self.m2
+            self.m1 + self.m3
         assert 'Added magnitudes must have the same units.' in str(exc.value)
 
     def test_subtract_same_units(self):
@@ -62,7 +73,7 @@ class TestMagnitudeOperators:
 
     def test_subtract_different_units(self):
         with pytest.raises(TypeError) as exc:
-            self.m1 - self.m2
+            self.m1 - self.m3
         assert 'Subtracted magnitudes must have the same units.' in str(exc.value)
 
     def test_multiply(self):

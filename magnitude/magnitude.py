@@ -6,6 +6,7 @@ Classes
 Magnitude :
     Class to perform simple operations with magnitudes including units and uncertainties.
 """
+from warnings import warn
 from math import sqrt
 
 
@@ -56,8 +57,8 @@ class Magnitude:
         return f'{self.value} \u00B1 {self.uncertainty} {self.unit} ({self.relative_uncertainty * 100}%)'
 
     def __add__(self, other):
+        """Magnitudes can be summed as long as they have the same units."""
         if self.unit == other.unit:
-            """Magnitudes can be summed as long as they have the same units."""
             value = self.value + other.value
             uncertainty = sqrt(self.uncertainty ** 2 + other.uncertainty ** 2)
             magnitude = Magnitude(value=value, unit=self.unit, uncertainty=uncertainty)
@@ -109,17 +110,23 @@ class Magnitude:
         ValueError
             If the absolute or relative uncertainty are negative.
         """
-        # TODO: magnitudes with value zero and uncertainty cannot be defined, but they can with relative uncertainty.
         if self.uncertainty is not None:
             if self.relative_uncertainty is not None:
                 if self.relative_uncertainty != self.uncertainty / self.value:
                     raise ValueError('Absolute and relative uncertainties do not match.')
             else:
-                self.relative_uncertainty = self.uncertainty / self.value
+                if self.value == 0:
+                    warn('Magnitude defined with zero value. Uncertainties may not have physical meaning.')
+                    self.relative_uncertainty = float('inf')
+                else:
+                    self.relative_uncertainty = self.uncertainty / self.value
         else:
             if self.relative_uncertainty is not None:
+                if self.value == 0:
+                    warn('Magnitude defined with zero value. Uncertainties may not have physical meaning.')
                 self.uncertainty = self.value * self.relative_uncertainty
             else:
                 raise TypeError('Magnitudes must have uncertainties.')
         if self.uncertainty < 0 or self.relative_uncertainty < 0:
             raise ValueError('Uncertainties must be positive.')
+

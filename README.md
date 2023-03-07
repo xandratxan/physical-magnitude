@@ -124,26 +124,6 @@ Traceback (most recent call last):
 ValueError: Uncertainties must be positive.
 ```
 
-Magnitudes with exact value of zero cannot be defined, since relative uncertainty would be infinite.
-
-```
-Magnitude(value=0, unit='m', uncertainty=0.1)
-Traceback (most recent call last):
-  File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
-    coro = func()
-  File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
-    self.complete_uncertainties()
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 63, in complete_uncertainties
-    self.relative_uncertainty = self.uncertainty / self.value
-ZeroDivisionError: float division by zero
-```
-
-```
-Magnitude(value=0, unit='m', relative_uncertainty=0.1)
-0 ± 0.0 m (10.0%)
-```
-
 ### Simple operations with magnitudes
 
 First, define some magnitudes to operate with them:
@@ -169,6 +149,7 @@ m2 - m1
 If they have different units, an exception will be raised:
 
 ```
+m2 + m3
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()

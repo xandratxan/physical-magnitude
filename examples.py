@@ -26,6 +26,11 @@ m = Magnitude(value=20, unit='m', uncertainty=0)
 print(m)
 m = Magnitude(value=20, unit='m', relative_uncertainty=0)
 print(m)
+# Magnitudes defined with zero value may be tricky: uncertainties may not have physical meaning:
+m = Magnitude(value=0, unit='m', uncertainty=0.1)
+print(m)
+m = Magnitude(value=0, unit='m', relative_uncertainty=0.1)
+print(m)
 
 # How magnitudes cannot be defined
 
