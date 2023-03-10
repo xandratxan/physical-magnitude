@@ -21,7 +21,7 @@ Magnitudes are defined as instantiations of the class ``Magnitude``:
 
 .. code-block::
 
-   from src.magnitude import Magnitude
+   from magnitude import Magnitude
 
 Magnitudes must have value, uncertainty and unit.
 If absolute uncertainty is provided, relative uncertainty will be calculated:
@@ -52,12 +52,12 @@ If both uncertainties are not equivalent, an exception will be raised:
 
     Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 60, in complete_uncertainties
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 70, in __init__
+        self._magnitude_consistency_check()
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 134, in _magnitude_consistency_check
         raise ValueError('Absolute and relative uncertainties do not match.')
     ValueError: Absolute and relative uncertainties do not match.
 
@@ -99,12 +99,12 @@ Magnitudes must have uncertainties. They cannot be defined with no uncertainties
 
     Magnitude(value=10, unit='m')
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 70, in complete_uncertainties
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 70, in __init__
+        self._magnitude_consistency_check()
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 147, in _magnitude_consistency_check
         raise TypeError('Magnitudes must have uncertainties.')
     TypeError: Magnitudes must have uncertainties.
 
@@ -114,12 +114,12 @@ Magnitudes cannot be defined with negative uncertainties, since it has no physic
 
     Magnitude(value=20, unit='m', uncertainty=-2)
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 70, in __init__
+        self._magnitude_consistency_check()
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 149, in _magnitude_consistency_check
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
@@ -127,12 +127,12 @@ Magnitudes cannot be defined with negative uncertainties, since it has no physic
 
     Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
-        self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 70, in __init__
+        self._magnitude_consistency_check()
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 149, in _magnitude_consistency_check
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
@@ -165,10 +165,10 @@ If they have different units, an exception will be raised:
 
     m1 + m3
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 22, in __add__
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 83, in __add__
         raise TypeError('Added magnitudes must have the same units.')
     TypeError: Added magnitudes must have the same units.
 
@@ -176,10 +176,10 @@ If they have different units, an exception will be raised:
 
     m2 - m3
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 31, in __sub__
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 93, in __sub__
         raise TypeError('Subtracted magnitudes must have the same units.')
     TypeError: Subtracted magnitudes must have the same units.
 
@@ -224,10 +224,10 @@ Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2``
 
     m1 * m2 + m4
     Traceback (most recent call last):
-      File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 68, in __add__
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 83, in __add__
         raise TypeError('Added magnitudes must have the same units.')
     TypeError: Added magnitudes must have the same units.
 
