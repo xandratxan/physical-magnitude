@@ -6,14 +6,22 @@ This page gives a good introduction in how to get started with ``magnitudes``.
 Installation
 ------------
 
-How to define a magnitude
--------------------------
-
-Magnitudes are defined as instantiations of the class ``Magnitude``.
+``magnitudes`` can be installed via pip after downloading the package from GitHub:
 
 .. code-block::
 
-   from magnitude.magnitude import Magnitude
+    git clone git@github.com:xandratxan/magnitudes.git
+    cd magnitudes
+    pip install .
+
+How to define a magnitude
+-------------------------
+
+Magnitudes are defined as instantiations of the class ``Magnitude``:
+
+.. code-block::
+
+   from src.magnitude import Magnitude
 
 Magnitudes must have value, uncertainty and unit.
 If absolute uncertainty is provided, relative uncertainty will be calculated:
@@ -47,13 +55,13 @@ If both uncertainties are not equivalent, an exception will be raised:
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
         self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 60, in complete_uncertainties
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 60, in complete_uncertainties
         raise ValueError('Absolute and relative uncertainties do not match.')
     ValueError: Absolute and relative uncertainties do not match.
 
-Magnitudes without uncertainties may be defined with zero uncertainty.
+Magnitudes without uncertainties may be defined with zero uncertainty:
 
 .. code-block::
 
@@ -70,7 +78,7 @@ Magnitudes without uncertainties may be defined with zero uncertainty.
     Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
     20 ± 0 m (0%)
 
-Magnitudes can defined with zero value, but they may be tricky: uncertainties may not have physical meaning.
+Magnitudes can defined with zero value, but they may be tricky: uncertainties may not have physical meaning:
 
 .. code-block::
 
@@ -94,13 +102,13 @@ Magnitudes must have uncertainties. They cannot be defined with no uncertainties
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
         self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 70, in complete_uncertainties
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 70, in complete_uncertainties
         raise TypeError('Magnitudes must have uncertainties.')
     TypeError: Magnitudes must have uncertainties.
 
-Magnitudes cannot be defined with negative uncertainties, since it have no physical meaning:
+Magnitudes cannot be defined with negative uncertainties, since it has no physical meaning:
 
 .. code-block::
 
@@ -109,9 +117,9 @@ Magnitudes cannot be defined with negative uncertainties, since it have no physi
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
         self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 72, in complete_uncertainties
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
@@ -122,9 +130,9 @@ Magnitudes cannot be defined with negative uncertainties, since it have no physi
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
         self.complete_uncertainties()
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 72, in complete_uncertainties
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
@@ -160,7 +168,7 @@ If they have different units, an exception will be raised:
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 22, in __add__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 22, in __add__
         raise TypeError('Added magnitudes must have the same units.')
     TypeError: Added magnitudes must have the same units.
 
@@ -171,7 +179,7 @@ If they have different units, an exception will be raised:
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 31, in __sub__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 31, in __sub__
         raise TypeError('Subtracted magnitudes must have the same units.')
     TypeError: Subtracted magnitudes must have the same units.
 
@@ -219,7 +227,7 @@ Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2``
       File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
       File "<input>", line 1, in <module>
-      File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 68, in __add__
+      File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 68, in __add__
         raise TypeError('Added magnitudes must have the same units.')
     TypeError: Added magnitudes must have the same units.
 

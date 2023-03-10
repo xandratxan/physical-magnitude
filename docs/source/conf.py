@@ -9,7 +9,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../magnitude/'))
+sys.path.insert(0, os.path.abspath('../../src/'))
 
 project = 'Magnitudes'
 copyright = '2023, Xandra Campo'
@@ -37,5 +37,3 @@ html_theme_options = {
     'collapse_navigation': False,
     'navigation_depth': 4,
 }
-
-# TODO: Installation section.

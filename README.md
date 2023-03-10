@@ -10,7 +10,7 @@ Available operations include summation, subtraction, multiplication and division
 
 ## Installation
 
-Installation for local usage:
+``magnitudes`` can be installed via pip after downloading the package from GitHub:
 
 ```bash
 git clone git@github.com:xandratxan/magnitudes.git
@@ -27,7 +27,7 @@ pip install .
 Magnitudes are defined as instantiations of the class ``Magnitude``.
 
 ```python
-from magnitude.magnitude import Magnitude
+from src.magnitude import Magnitude
 ```
 
 Magnitudes must have value, uncertainty and unit.
@@ -61,9 +61,9 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
     self.complete_uncertainties()
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 60, in complete_uncertainties
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 60, in complete_uncertainties
     raise ValueError('Absolute and relative uncertainties do not match.')
 ValueError: Absolute and relative uncertainties do not match.
 ```
@@ -95,9 +95,9 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
     self.complete_uncertainties()
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 70, in complete_uncertainties
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 70, in complete_uncertainties
     raise TypeError('Magnitudes must have uncertainties.')
 TypeError: Magnitudes must have uncertainties.
 ```
@@ -110,9 +110,9 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
     self.complete_uncertainties()
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 72, in complete_uncertainties
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
     raise ValueError('Uncertainties must be positive.')
 ValueError: Uncertainties must be positive.
 ```
@@ -123,9 +123,9 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 10, in __init__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 10, in __init__
     self.complete_uncertainties()
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 72, in complete_uncertainties
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 72, in complete_uncertainties
     raise ValueError('Uncertainties must be positive.')
 ValueError: Uncertainties must be positive.
 ```
@@ -161,7 +161,7 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 22, in __add__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 22, in __add__
     raise TypeError('Added magnitudes must have the same units.')
 TypeError: Added magnitudes must have the same units.
 ```
@@ -172,7 +172,7 @@ Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 31, in __sub__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 31, in __sub__
     raise TypeError('Subtracted magnitudes must have the same units.')
 TypeError: Subtracted magnitudes must have the same units.
 ```
@@ -192,14 +192,14 @@ m2 / m1
 
 Multiple magnitudes can be summed and/or subtracted as long as they have the same units:
 
-```
+```python
 m1 + m2 + m1 - m2
 20 ± 3.1622776601683795 m (15.811388300841896%)
 ```
 
 Multiple magnitudes can be multiplied and/or divided independently of their units:
 
-```
+```python
 m1 * m2 / m3
 10.0 ± 1.7320508075688776 m·m/cm (17.320508075688775%)
 ```
@@ -207,20 +207,20 @@ m1 * m2 / m3
 However, combining summation/subtraction with product/division require some user work.
 Trying to do m1 * m2 + m4 will raise an error since the units of m1 * m2 are m·m while the units of m4 are m².
 
-```
+```python
 m1 * m2 + m4
 Traceback (most recent call last):
   File "/snap/pycharm-professional/319/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
     coro = func()
   File "<input>", line 1, in <module>
-  File "/home/txan/PycharmProjects/magnitudes/magnitude/magnitude.py", line 68, in __add__
+  File "/home/txan/PycharmProjects/magnitudes/src/magnitude.py", line 68, in __add__
     raise TypeError('Added magnitudes must have the same units.')
 TypeError: Added magnitudes must have the same units.
 ```
 
 First, we need to define a new magnitude m as m1 * m2, then change the unit of m from m·m to m², and finally we can do m + m4 
 
-```
+```python
 m = m1 * m2
 m
 200 ± 28.284271247461906 m·m (14.142135623730953%)

@@ -6,8 +6,8 @@ Classes
 Magnitude :
     Class to perform simple operations with magnitudes including units and uncertainties.
 """
-from warnings import warn
 from math import sqrt
+from warnings import warn
 
 
 class Magnitude:
