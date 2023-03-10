@@ -1,1 +1,2 @@
-from magnitude import Magnitude
+# Populate package namespace
+from .magnitude import Magnitude
