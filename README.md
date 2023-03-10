@@ -27,7 +27,7 @@ pip install .
 Magnitudes are defined as instantiations of the class ``Magnitude``.
 
 ```python
-from src.magnitude import Magnitude
+from src.magnitude.magnitude import Magnitude
 ```
 
 Magnitudes must have value, uncertainty and unit.

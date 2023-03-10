@@ -1,6 +1,6 @@
 import pytest
 
-from src.magnitude import Magnitude
+from src.magnitude.magnitude import Magnitude
 
 
 class TestMagnitudeDefinition:
