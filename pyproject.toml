@@ -7,7 +7,7 @@ name = "magnitude"
 description = 'Package to perform simple operations with magnitudes including units and uncertainties.'
 readme = "README.md"
 requires-python = ">=3.7"
-license = "GPL3"
+license = "GPL-3.0-only"
 keywords = []
 dependencies = []
 version = "0.1.0"
