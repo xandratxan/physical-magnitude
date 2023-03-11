@@ -147,3 +147,21 @@ class Magnitude:
                 raise TypeError('Magnitudes must have uncertainties.')
         if self.uncertainty < 0 or self.relative_uncertainty < 0:
             raise ValueError('Uncertainties must be positive.')
+
+# TODO: BUG1 Magnitudes, representation, non-dimensional magnitudes, from '10 ± 1 ND (10%)' to '10 ± 1 (10%)'
+
+# TODO: BUG2 Magnitudes, negative values cant be defined since uncertainty calculation will derive negative uncertainty!
+#  Magnitude(value=-2.6470, unit='y', uncertainty=0.0026) This should be possible
+#  Magnitude(value=-2.6470, unit='y', uncertainty=-0.0026) This should not be possible
+
+# TODO: BUG3 Magnitudes, assign negative value to uncertainty attributes should not be possible
+#  m = Magnitude(value=10, unit='m', uncertainty=1)
+#  m.uncertainty = -1
+#  m.relative_uncertainty = -1
+
+# TODO: Magnitudes: add parenthesis to units product and division.
+#  Check all magnitudes (check print(h.unit) before unit conversion)
+
+# TODO: Magnitudes, representation, show only significant numbers
+
+# TODO: Magnitudes, tests, script to automate tests expected values
