@@ -1,56 +1,48 @@
-User Guide
-==========
+How to guides
+=============
 
-This page gives a good introduction in how to get started with ``magnitudes``.
+This section describes how to accomplish common tasks with ``magnitudes``.
 
-Installation
-------------
-
-``magnitudes`` can be installed via pip after downloading the package from GitHub:
-
-.. code-block::
-
-    git clone git@github.com:xandratxan/magnitudes.git
-    cd magnitudes
-    pip install .
+.. contents:: Table of Contents
 
 How to define a magnitude
 -------------------------
 
-Magnitudes are defined as instantiations of the class ``Magnitude``:
+How to define a magnitude with uncertainty
+..........................................
+
+There are two options to define a magnitude with uncertainty:
+
+- Provide the standard uncertainty of the magnitude.
+- Provide the relative standard uncertainty of the magnitude.
+
+If standard uncertainty is provided, for example d = 20 ± 2 m, relative standard uncertainty will be calculated:
 
 .. code-block::
 
-   from magnitude import Magnitude
-
-Magnitudes must have value, uncertainty and unit.
-If absolute uncertainty is provided, relative uncertainty will be calculated:
-
-.. code-block::
-
-    Magnitude(value=20, unit='m', uncertainty=2)
+    >>> Magnitude(value=20, unit='m', uncertainty=2)
     20 ± 2 m (10.0%)
 
-If relative uncertainty is provided, absolute uncertainty will be calculated:
+If relative standard uncertainty is provided, for example d = 20 m ± 10%, standard uncertainty will be calculated:
 
 .. code-block::
 
-    Magnitude(value=30, unit='m', relative_uncertainty=0.1)
+    >>> Magnitude(value=30, unit='m', relative_uncertainty=0.1)
     30 ± 3.0 m (10.0%)
 
 If both uncertainties are provided, the agreement between values will be checked.
-If both uncertainties are equivalent, the magnitude will be defined correctly:
+If both uncertainties are equivalent, for example d = 20 ± 2 m (10%), the magnitude will be defined correctly:
 
 .. code-block::
 
-    Magnitude(value=20, unit='m', uncertainty=2, relative_uncertainty=0.1)
+    >>> Magnitude(value=20, unit='m', uncertainty=2, relative_uncertainty=0.1)
     20 ± 2 m (10.0%)
 
-If both uncertainties are not equivalent, an exception will be raised:
+If both uncertainties are not equivalent, for example d = 20 ± 3 m (10%), an exception will be raised:
 
 .. code-block::
 
-    Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
+    >>> Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -61,43 +53,38 @@ If both uncertainties are not equivalent, an exception will be raised:
         raise ValueError('Absolute and relative uncertainties do not match.')
     ValueError: Absolute and relative uncertainties do not match.
 
-Magnitudes without uncertainties may be defined with zero uncertainty:
+How to define a magnitude without uncertainty
+.............................................
+
+Magnitudes without uncertainties, for example d = 20 m, can be defined with zero uncertainty:
 
 .. code-block::
 
-    Magnitude(value=20, unit='m', uncertainty=0)
+    >>> Magnitude(value=20, unit='m', uncertainty=0)
     20 ± 0 m (0.0%)
-
-.. code-block::
-
-    Magnitude(value=20, unit='m', relative_uncertainty=0)
+    >>> Magnitude(value=20, unit='m', relative_uncertainty=0)
+    20 ± 0 m (0%)
+    >>> Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
     20 ± 0 m (0%)
 
-.. code-block::
+How to define a non-dimensional magnitude
+.........................................
 
-    Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
-    20 ± 0 m (0%)
-
-Magnitudes can defined with zero value, but they may be tricky: uncertainties may not have physical meaning:
+Non-dimensional magnitudes, for example d = 20 ± 2 (10%), can be defines with an empty string as unit:
 
 .. code-block::
 
-    Magnitude(value=0, unit='m', uncertainty=0.1)
-    0 ± 0.1 m (inf%)
+    >>> Magnitude(value=20, unit='', uncertainty=2)
+    20 ± 2  (10.0%)
+
+How to not define a magnitude
+.............................
+
+Magnitudes must be defined with at least one type of standard uncertainty:
 
 .. code-block::
 
-    Magnitude(value=0, unit='m', relative_uncertainty=0.1)
-    0 ± 0.0 m (10.0%)
-
-How not to define magnitude
----------------------------
-
-Magnitudes must have uncertainties. They cannot be defined with no uncertainties:
-
-.. code-block::
-
-    Magnitude(value=10, unit='m')
+    >>> Magnitude(value=10, unit='m')
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -112,7 +99,7 @@ Magnitudes cannot be defined with negative uncertainties, since it has no physic
 
 .. code-block::
 
-    Magnitude(value=20, unit='m', uncertainty=-2)
+    >>> Magnitude(value=20, unit='m', uncertainty=-2)
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -125,7 +112,7 @@ Magnitudes cannot be defined with negative uncertainties, since it has no physic
 
 .. code-block::
 
-    Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
+    >>> Magnitude(value=30, unit='m', relative_uncertainty=-0.1)
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -136,34 +123,50 @@ Magnitudes cannot be defined with negative uncertainties, since it has no physic
         raise ValueError('Uncertainties must be positive.')
     ValueError: Uncertainties must be positive.
 
-Sum and subtract magnitudes
----------------------------
+.. code-block::
+
+    >>> Magnitude(value=20, unit='m', uncertainty=-2, relative_uncertainty=-0.1)
+    Traceback (most recent call last):
+      File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
+        coro = func()
+      File "<input>", line 1, in <module>
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 70, in __init__
+        self._magnitude_consistency_check()
+      File "/home/txan/PycharmProjects/testProject/venv/lib/python3.10/site-packages/magnitude/magnitude.py", line 149, in _magnitude_consistency_check
+        raise ValueError('Uncertainties must be positive.')
+    ValueError: Uncertainties must be positive.
+
+How to operate with magnitudes
+------------------------------
+
+How to sum and subtract magnitudes
+..................................
 
 First, define some magnitudes to operate with them:
 
 .. code-block::
 
-    m1 = Magnitude(value=10, unit='m', uncertainty=1)
-    m2 = Magnitude(value=20, unit='m', uncertainty=2)
-    m3 = Magnitude(value=20, unit='cm', uncertainty=2)
+    >>> m1 = Magnitude(value=10, unit='m', uncertainty=1)
+    >>> m2 = Magnitude(value=20, unit='m', uncertainty=2)
+    >>> m3 = Magnitude(value=20, unit='cm', uncertainty=2)
 
 Magnitudes can be summed or subtracted as long as they have the same units:
 
 .. code-block::
 
-    m1 + m2
+    >>> m1 + m2
     30 ± 2.23606797749979 m (7.4535599249993%)
 
 .. code-block::
 
-    m2 - m1
+    >>> m2 - m1
     10 ± 2.23606797749979 m (22.360679774997898%)
 
 If they have different units, an exception will be raised:
 
 .. code-block::
 
-    m1 + m3
+    >>> m1 + m3
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -174,7 +177,7 @@ If they have different units, an exception will be raised:
 
 .. code-block::
 
-    m2 - m3
+    >>> m2 - m3
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -183,30 +186,46 @@ If they have different units, an exception will be raised:
         raise TypeError('Subtracted magnitudes must have the same units.')
     TypeError: Subtracted magnitudes must have the same units.
 
-Multiply and divide magnitudes
-------------------------------
+How to multiply and divide magnitudes
+.....................................
+
+First, define some magnitudes to operate with them:
+
+.. code-block::
+
+    >>> m1 = Magnitude(value=10, unit='m', uncertainty=1)
+    >>> m2 = Magnitude(value=20, unit='m', uncertainty=2)
 
 Magnitudes can be multiplied or divided independently of their units.
 The unit resulting from the product or the division will be the concatenation of the individual magnitudes:
 
 .. code-block::
 
-    m1 * m2
+    >>> m1 * m2
     200 ± 28.284271247461906 m·m (14.142135623730953%)
 
 .. code-block::
 
-    m2 / m1
+    >>> m2 / m1
     2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
 
-Combining summation/subtraction with product/division
------------------------------------------------------
+How to operate with more than two magnitudes
+............................................
+
+First, define some magnitudes to operate with them:
+
+.. code-block::
+
+    >>> m1 = Magnitude(value=10, unit='m', uncertainty=1)
+    >>> m2 = Magnitude(value=20, unit='m', uncertainty=2)
+    >>> m3 = Magnitude(value=20, unit='cm', uncertainty=2)
+    >>> m4 = Magnitude(value=20, unit='m²', uncertainty=2)
 
 Multiple magnitudes can be summed and/or subtracted as long as they have the same units:
 
 .. code-block::
 
-    m1 + m2 + m1 - m2
+    >>> m1 + m2 + m1 - m2
     20 ± 3.1622776601683795 m (15.811388300841896%)
 
 
@@ -214,15 +233,16 @@ Multiple magnitudes can be multiplied and/or divided independently of their unit
 
 .. code-block::
 
-    m1 * m2 / m3
+    >>> m1 * m2 / m3
     10.0 ± 1.7320508075688776 m·m/cm (17.320508075688775%)
 
-However, combining summation/subtraction with product/division require some units management.
-Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2`` are ``'m·m'`` while the units of ``m4`` are ``'m²'``.
+Combining summation/subtraction with product/division require some unit management.
+Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2`` are ``'m·m'``
+while the units of ``m4`` are ``'m²'``.
 
 .. code-block::
 
-    m1 * m2 + m4
+    >>> m1 * m2 + m4
     Traceback (most recent call last):
       File "/snap/pycharm-professional/325/plugins/python/helpers/pydev/pydevconsole.py", line 364, in runcode
         coro = func()
@@ -231,25 +251,25 @@ Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2``
         raise TypeError('Added magnitudes must have the same units.')
     TypeError: Added magnitudes must have the same units.
 
-First, we need to define a new magnitude ``m`` as ``m1 * m2``:
+To work around this, first we need to define a new magnitude ``m`` as ``m1 * m2``:
 
 .. code-block::
 
-    m = m1 * m2
-    m
+    >>> m = m1 * m2
+    >>> m
     200 ± 28.284271247461906 m·m (14.142135623730953%)
 
 Then, we need to change the unit of ``m`` from ``'m·m'`` to ``'m²'``:
 
 .. code-block::
 
-    m.unit = 'm²'
-    m
+    >>> m.unit = 'm²'
+    >>> m
     200 ± 28.284271247461906 m² (14.142135623730953%)
 
 Finally we can do ``m + m4``:
 
 .. code-block::
 
-    m + m4
+    >>> m + m4
     220 ± 28.354893757515654 m² (12.888588071598026%)

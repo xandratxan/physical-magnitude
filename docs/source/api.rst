@@ -3,16 +3,8 @@ API Reference
 
 This part of the documentation covers all the public interfaces of ``magnitudes``.
 
-.. autosummary::
-    magnitude
-    magnitude.Magnitude
-
-magnitude
----------
-
-.. automodule:: magnitude
-
-magnitude.Magnitude
+magnitude.magnitude
 -------------------
 
-.. autoclass:: magnitude.Magnitude
+.. automodule:: magnitude.magnitude
+   :members:

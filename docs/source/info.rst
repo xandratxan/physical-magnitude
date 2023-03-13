@@ -1,8 +1,5 @@
-Useful information
-==================
-
 About ``magnitudes``
---------------------
+====================
 
 :Last version: 0.1.0
 :Last release: March 2023

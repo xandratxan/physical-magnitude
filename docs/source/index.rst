@@ -15,7 +15,8 @@ Available operations include summation, subtraction, multiplication and division
 
 .. toctree::
    info
-   usage
+   tutorial
+   howto
    api
    :maxdepth: 4
    :caption: Contents
