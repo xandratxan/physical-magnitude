@@ -21,6 +21,18 @@ class TestMagnitudeDefinition:
             Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
         assert 'Absolute and relative uncertainties do not match.' in str(exc.value)
 
+    def test_zero_uncertainty(self):
+        m1 = Magnitude(value=20, unit='m', uncertainty=0)
+        m2 = Magnitude(value=20, unit='m', relative_uncertainty=0)
+        m3 = Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
+        assert str(m1) == '20 ± 0 m (0.0%)'
+        assert str(m2) == '20 ± 0 m (0%)'
+        assert str(m3) == '20 ± 0 m (0%)'
+
+    def test_non_dimensional(self):
+        m = Magnitude(value=20, unit='', uncertainty=2)
+        assert str(m) == '20 ± 2  (10.0%)'
+
     def test_no_uncertainties(self):
         with pytest.raises(TypeError) as exc:
             Magnitude(value=20, unit='m')
@@ -30,26 +42,17 @@ class TestMagnitudeDefinition:
         with pytest.raises(ValueError) as exc:
             Magnitude(value=20, unit='m', uncertainty=-2)
         assert 'Uncertainties must be positive.' in str(exc.value)
-
-    def test_negative_relative_uncertainty(self):
         with pytest.raises(ValueError) as exc:
             Magnitude(value=20, unit='m', relative_uncertainty=-0.1)
         assert 'Uncertainties must be positive.' in str(exc.value)
+        with pytest.raises(ValueError) as exc:
+            Magnitude(value=20, unit='m', uncertainty=-2, relative_uncertainty=-0.1)
+        assert 'Uncertainties must be positive.' in str(exc.value)
 
-    def test_zero_uncertainty(self):
-        m = Magnitude(value=20, unit='m', uncertainty=0)
-        assert str(m) == '20 ± 0 m (0.0%)'
-
-    def test_zero_relative_uncertainty(self):
-        m = Magnitude(value=20, unit='m', relative_uncertainty=0)
-        assert str(m) == '20 ± 0 m (0%)'
-
-    def test_zero_value_and_uncertainty(self):
+    def test_zero_value(self):
         with pytest.warns(UserWarning):
             m = Magnitude(value=0, unit='m', uncertainty=0.1)
             assert str(m) == '0 ± 0.1 m (inf%)'
-
-    def test_zero_value_and_relative_uncertainty(self):
         with pytest.warns(UserWarning):
             m = Magnitude(value=0, unit='m', relative_uncertainty=0.1)
             assert str(m) == '0 ± 0.0 m (10.0%)'
