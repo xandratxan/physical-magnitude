@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "magnitude"
+name = "physical-magnitude"
 description = 'Package to perform simple operations with magnitudes including units and uncertainties.'
 readme = "README.md"
 requires-python = ">=3.7"
@@ -13,9 +13,9 @@ dependencies = []
 version = "0.1.0"
 
 [project.urls]
-Documentation = "https://github.com/xandratxan/magnitude#readme"
-Issues = "https://github.com/xandratxa/nmagnitude/issues"
-Source = "https://github.com/xandratxan/magnitude"
+Documentation = "https://github.com/xandratxan/physical-magnitude#readme"
+Issues = "https://github.com/xandratxa/physical-magnitude/issues"
+Source = "https://github.com/xandratxan/physical-magnitude"
 
 [tool.hatch.envs.default]
 dependencies = [
