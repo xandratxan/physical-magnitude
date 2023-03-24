@@ -137,12 +137,12 @@ class Magnitude:
                     warn('Magnitude defined with zero value. Uncertainties may not have physical meaning.')
                     self.relative_uncertainty = float('inf')
                 else:
-                    self.relative_uncertainty = self.uncertainty / self.value
+                    self.relative_uncertainty = abs(self.uncertainty / self.value)
         else:
             if self.relative_uncertainty is not None:
                 if self.value == 0:
                     warn('Magnitude defined with zero value. Uncertainties may not have physical meaning.')
-                self.uncertainty = self.value * self.relative_uncertainty
+                self.uncertainty = abs(self.value * self.relative_uncertainty)
             else:
                 raise TypeError('Magnitudes must have uncertainties.')
         if self.uncertainty < 0 or self.relative_uncertainty < 0:

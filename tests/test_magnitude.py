@@ -57,6 +57,10 @@ class TestMagnitudeDefinition:
             m = Magnitude(value=0, unit='m', relative_uncertainty=0.1)
             assert str(m) == '0 ± 0.0 m (10.0%)'
 
+    def test_negative_value(self):
+        m = Magnitude(value=-20, unit='m', uncertainty=2)
+        assert str(m) == '-20 ± 2 m (10.0%)'
+
 
 class TestMagnitudeOperators:
     m1 = Magnitude(value=10, unit='m', uncertainty=1)
