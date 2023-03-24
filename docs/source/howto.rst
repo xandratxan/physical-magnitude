@@ -202,12 +202,12 @@ The unit resulting from the product or the division will be the concatenation of
 .. code-block::
 
     >>> m1 * m2
-    200 ± 28.284271247461906 m·m (14.142135623730953%)
+    200 ± 28.284271247461906 (m)·(m) (14.142135623730953%)
 
 .. code-block::
 
     >>> m2 / m1
-    2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
+    2.0 ± 0.28284271247461906 (m)/(m) (14.142135623730953%)
 
 How to operate with more than two magnitudes
 ............................................
@@ -234,7 +234,7 @@ Multiple magnitudes can be multiplied and/or divided independently of their unit
 .. code-block::
 
     >>> m1 * m2 / m3
-    10.0 ± 1.7320508075688776 m·m/cm (17.320508075688775%)
+    10.0 ± 1.7320508075688776 ((m)·(m))/(cm) (17.320508075688775%)
 
 Combining summation/subtraction with product/division require some unit management.
 Trying to do ``m1 * m2 + m4`` will raise an error since the units of ``m1 * m2`` are ``'m·m'``
@@ -257,9 +257,9 @@ To work around this, first we need to define a new magnitude ``m`` as ``m1 * m2`
 
     >>> m = m1 * m2
     >>> m
-    200 ± 28.284271247461906 m·m (14.142135623730953%)
+    200 ± 28.284271247461906 (m)·(m) (14.142135623730953%)
 
-Then, we need to change the unit of ``m`` from ``'m·m'`` to ``'m²'``:
+Then, we need to change the unit of ``m`` from ``'(m)·(m)'`` to ``'m²'``:
 
 .. code-block::
 

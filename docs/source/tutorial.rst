@@ -60,9 +60,9 @@ Lets multiply these two magnitudes:
 
     >>> m_prod = m1 * m2
     >>> m_prod
-    200 ± 28.284271247461906 m·m (14.142135623730953%)
+    200 ± 28.284271247461906 (m)·(m) (14.142135623730953%)
 
-Note that the unit of ``m_prod`` is ``m·m``, which is m².
+Note that the unit of ``m_prod`` is ``(m)·(m)``, which is m².
 Lest modify the unit of ``m_prod`` accordingly:
 
 .. code-block::
@@ -77,9 +77,9 @@ Lets divide these two magnitudes:
 
     >>> m_div = m2 / m1
     >>> m_div
-    2.0 ± 0.28284271247461906 m/m (14.142135623730953%)
+    2.0 ± 0.28284271247461906 (m)/(m) (14.142135623730953%)
 
-Note that the unit of ``m_div`` is ``m/m``, which means that the magnitude ``m_div``is non-dimensional.
+Note that the unit of ``m_div`` is ``(m)/(m)``, which means that the magnitude ``m_div``is non-dimensional.
 Lest modify the unit of ``m_div`` accordingly:
 
 .. code-block::

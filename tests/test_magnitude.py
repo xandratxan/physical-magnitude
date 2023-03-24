@@ -80,7 +80,7 @@ class TestMagnitudeOperators:
         assert 'Subtracted magnitudes must have the same units.' in str(exc.value)
 
     def test_multiply(self):
-        assert str(self.m1 * self.m2) == '200 ± 28.284271247461906 m·m (14.142135623730953%)'
+        assert str(self.m1 * self.m2) == '200 ± 28.284271247461906 (m)·(m) (14.142135623730953%)'
 
     def test_divide(self):
-        assert str(self.m2 / self.m1) == '2.0 ± 0.28284271247461906 m/m (14.142135623730953%)'
+        assert str(self.m2 / self.m1) == '2.0 ± 0.28284271247461906 (m)/(m) (14.142135623730953%)'
