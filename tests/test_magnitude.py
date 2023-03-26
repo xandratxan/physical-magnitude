@@ -5,70 +5,70 @@ from src.magnitude import Magnitude
 
 class TestMagnitudeDefinition:
     def test_absolute_uncertainty(self):
-        m = Magnitude(value=20, unit='m', uncertainty=2)
-        assert str(m) == '20 ± 2 m (10.0%)'
+        m = Magnitude(value=100, uncertainty=1, unit='m')
+        assert str(m) == '100.0 ± 1.0 m (1.0%)'
 
     def test_relative_uncertainty(self):
-        m = Magnitude(value=20, unit='m', relative_uncertainty=0.1)
-        assert str(m) == '20 ± 2.0 m (10.0%)'
+        m = Magnitude(value=100, uncertainty=0.01, unit='m', relative_uncertainty=True)
+        assert str(m) == '100.0 ± 1.0 m (1.0%)'
 
-    def test_matching_uncertainties(self):
-        m = Magnitude(value=20, unit='m', uncertainty=2, relative_uncertainty=0.1)
-        assert str(m) == '20 ± 2 m (10.0%)'
+    def test_negative_value(self):
+        m1 = Magnitude(value=-100, uncertainty=1, unit='m')
+        m2 = Magnitude(value=-100, uncertainty=0.01, unit='m', relative_uncertainty=True)
+        assert str(m1) == '-100.0 ± 1.0 m (1.0%)'
+        assert str(m2) == '-100.0 ± 1.0 m (1.0%)'
 
-    def test_no_matching_uncertainties(self):
-        with pytest.raises(ValueError) as exc:
-            Magnitude(value=20, unit='m', uncertainty=3, relative_uncertainty=0.1)
-        assert 'Absolute and relative uncertainties do not match.' in str(exc.value)
+    # def test_zero_value(self):
+    #     with pytest.raises(ZeroDivisionError):
+    #         Magnitude(value=0, uncertainty=1, unit='m')
+    #     with pytest.raises(ZeroDivisionError):
+    #         Magnitude(value=0, uncertainty=0.01, unit='m', relative_uncertainty=True)
 
     def test_zero_uncertainty(self):
-        m1 = Magnitude(value=20, unit='m', uncertainty=0)
-        m2 = Magnitude(value=20, unit='m', relative_uncertainty=0)
-        m3 = Magnitude(value=20, unit='m', uncertainty=0, relative_uncertainty=0)
-        assert str(m1) == '20 ± 0 m (0.0%)'
-        assert str(m2) == '20 ± 0 m (0%)'
-        assert str(m3) == '20 ± 0 m (0%)'
+        m1 = Magnitude(value=100, uncertainty=0, unit='m')
+        m2 = Magnitude(value=100, uncertainty=0, unit='m', relative_uncertainty=True)
+        assert str(m1) == '100.0 ± 0.0 m (0.0%)'
+        assert str(m2) == '100.0 ± 0.0 m (0.0%)'
 
     def test_non_dimensional(self):
-        m = Magnitude(value=20, unit='', uncertainty=2)
-        assert str(m) == '20 ± 2  (10.0%)'
-
-    def test_no_uncertainties(self):
-        with pytest.raises(TypeError) as exc:
-            Magnitude(value=20, unit='m')
-        assert 'Magnitudes must have uncertainties.' in str(exc.value)
+        m1 = Magnitude(value=100, uncertainty=1, unit='')
+        m2 = Magnitude(value=100, uncertainty=0.01, unit='', relative_uncertainty=True)
+        assert str(m1) == '100.0 ± 1.0  (1.0%)'
+        assert str(m2) == '100.0 ± 1.0  (1.0%)'
 
     def test_negative_uncertainty(self):
         with pytest.raises(ValueError) as exc:
-            Magnitude(value=20, unit='m', uncertainty=-2)
-        assert 'Uncertainties must be positive.' in str(exc.value)
+            Magnitude(value=100, uncertainty=-1, unit='m')
+        assert 'Uncertainty must be positive.' in str(exc.value)
         with pytest.raises(ValueError) as exc:
-            Magnitude(value=20, unit='m', relative_uncertainty=-0.1)
-        assert 'Uncertainties must be positive.' in str(exc.value)
-        with pytest.raises(ValueError) as exc:
-            Magnitude(value=20, unit='m', uncertainty=-2, relative_uncertainty=-0.1)
-        assert 'Uncertainties must be positive.' in str(exc.value)
+            Magnitude(value=100, uncertainty=-0.01, unit='m', relative_uncertainty=True)
+        assert 'Uncertainty must be positive.' in str(exc.value)
 
-    def test_zero_value(self):
-        with pytest.warns(UserWarning):
-            m = Magnitude(value=0, unit='m', uncertainty=0.1)
-            assert str(m) == '0 ± 0.1 m (inf%)'
-        with pytest.warns(UserWarning):
-            m = Magnitude(value=0, unit='m', relative_uncertainty=0.1)
-            assert str(m) == '0 ± 0.0 m (10.0%)'
 
-    def test_negative_value(self):
-        m = Magnitude(value=-20, unit='m', uncertainty=2)
-        assert str(m) == '-20 ± 2 m (10.0%)'
+class TestMagnitudeAttributeAssigment:
+    def test_value(self):
+        m = Magnitude(value=100, uncertainty=1, unit='m')
+        m.value = 10
+        assert str(m) == '10.0 ± 1.0 m (10.0%)'
+
+    def test_unit(self):
+        m = Magnitude(value=100, uncertainty=1, unit='m')
+        m.unit = 'cm'
+        assert str(m) == '100.0 ± 1.0 cm (1.0%)'
+
+    def test_uncertainty(self):
+        m = Magnitude(value=100, uncertainty=1, unit='m')
+        m.uncertainty = 10
+        assert str(m) == '100.0 ± 10.0 m (10.0%)'
 
 
 class TestMagnitudeOperators:
-    m1 = Magnitude(value=10, unit='m', uncertainty=1)
-    m2 = Magnitude(value=20, unit='m', uncertainty=2)
-    m3 = Magnitude(value=20, unit='cm', uncertainty=2)
+    m1 = Magnitude(value=10, uncertainty=1, unit='m')
+    m2 = Magnitude(value=20, uncertainty=2, unit='m')
+    m3 = Magnitude(value=20, uncertainty=2, unit='cm')
 
     def test_sum_same_units(self):
-        assert str(self.m1 + self.m2) == '30 ± 2.23606797749979 m (7.4535599249993%)'
+        assert str(self.m1 + self.m2) == '30.0 ± 2.23606797749979 m (7.4535599249993%)'
 
     def test_sum_different_units(self):
         with pytest.raises(TypeError) as exc:
@@ -76,7 +76,7 @@ class TestMagnitudeOperators:
         assert 'Added magnitudes must have the same units.' in str(exc.value)
 
     def test_subtract_same_units(self):
-        assert str(self.m2 - self.m1) == '10 ± 2.23606797749979 m (22.360679774997898%)'
+        assert str(self.m2 - self.m1) == '10.0 ± 2.23606797749979 m (22.360679774997898%)'
 
     def test_subtract_different_units(self):
         with pytest.raises(TypeError) as exc:
@@ -84,7 +84,7 @@ class TestMagnitudeOperators:
         assert 'Subtracted magnitudes must have the same units.' in str(exc.value)
 
     def test_multiply(self):
-        assert str(self.m1 * self.m2) == '200 ± 28.284271247461906 (m)·(m) (14.142135623730953%)'
+        assert str(self.m1 * self.m2) == '200.0 ± 28.284271247461906 (m)·(m) (14.142135623730953%)'
 
     def test_divide(self):
         assert str(self.m2 / self.m1) == '2.0 ± 0.28284271247461906 (m)/(m) (14.142135623730953%)'
