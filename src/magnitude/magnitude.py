@@ -9,6 +9,12 @@ Magnitude :
 from math import sqrt
 
 
+# TODO: Update documentation:
+# TODO: Update README
+# TODO: Update MyGitHubPage: physical magnitude page
+# TODO: Update documentation: tutorial
+# TODO: Update documentation: how-to
+# TODO: Update documentation: api
 class Magnitude:
     """
     Class to perform simple operations with magnitudes including units and uncertainties.
@@ -18,11 +24,10 @@ class Magnitude:
     Available operations include summation, subtraction, multiplication and division.
 
     Magnitudes must have value, uncertainty and unit.
-    If absolute uncertainty is provided, relative uncertainty will be calculated, and vice versa.
-    If both uncertainties are provided, the agreement between values will be checked.
+    Uncertainty can be provided in the same units of the magnitude or as a relative uncertainty.
+    Magnitudes with zero value cannot be defined.
     Magnitudes without uncertainties can be defined with zero uncertainty.
-    Magnitudes with zero value can be defined, but should be handled with care,
-    since uncertainties may not have physical meaning.
+    Non-dimensional magnitudes can be defined with an empty string unit.
 
     Magnitudes can be summed or subtracted as long as they have the same units.
     Magnitudes can be multiplied or divided independently of their units.
@@ -31,16 +36,17 @@ class Magnitude:
     Attributes
     ----------
     value : int or float
-        value of the magnitude
-    unit : str
-        unit of the magnitude
+        Value of the magnitude.
     uncertainty : int or float
-        uncertainty of the magnitude in the units of te magnitude (default None)
+        Uncertainty of the magnitude in the units of the magnitude.
+    unit : str
+        Unit of the magnitude.
+
 
     Raises
     ------
     ValueError
-        If the uncertainty is negative.
+        If uncertainty is negative.
     """
 
     def __init__(self, value, uncertainty, unit, relative_uncertainty=False):
@@ -48,13 +54,13 @@ class Magnitude:
         Parameters
         ----------
         value : int or float
-            value of the magnitude
+            Value of the magnitude.
         uncertainty : int or float
-            uncertainty of the magnitude in the units of the magnitude
+            Uncertainty of the magnitude.
         unit : str
-            unit of the magnitude
+            Unit of the magnitude.
         relative_uncertainty : bool, optional
-            uncertainty of the magnitude in percentage units (default False)
+            Type of uncertainty: False if absolute uncertainty, True if relative uncertainty (default False)
         """
         if uncertainty < 0:
             raise ValueError('Uncertainty must be positive.')
@@ -66,11 +72,11 @@ class Magnitude:
             self.uncertainty = uncertainty
 
     def relative_uncertainty(self):
-        # Return the relative uncertainty
+        """Return the relative uncertainty of the magnitude."""
         return self.uncertainty / abs(self.value)
 
     def percentage_uncertainty(self):
-        # Return the percentage uncertainty
+        """Return the percentage uncertainty of the magnitude."""
         return self.relative_uncertainty() * 100
 
     def __repr__(self):
