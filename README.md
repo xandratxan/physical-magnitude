@@ -1,12 +1,12 @@
-# Package magnitudes
+# Package physical-magnitude
 
 > Simple operations with magnitudes including units and uncertainties.
  
-| Last version: 0.1.0          | Source code: [GitHub](https://github.com/xandratxan/magnitudes/)             | Issues: [GitHub](https://github.com/xandratxan/magnitudes/issues/) |
-|------------------------------|------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| **Last release: March 2023** | **Documentation : [GitHub Pages](https://xandratxan.github.io/magnitudes/)** | **License: GNU GPL 3.0**                                           |
+| Last version: 0.1.0          | Source code: [GitHub](https://github.com/xandratxan/physical-magnitude/)             | Issues: [GitHub](https://github.com/xandratxan/physical-magnitude/issues/) |
+|------------------------------|--------------------------------------------------------------------|--------------------------------------------------------------------|
+| **Last release: March 2023** | **Documentation : [GitHub Pages](https://xandratxan.github.io/physical-magnitude/)** | **License: GNU GPL 3.0**                                           |
 
-This package allows to perform simple operations with magnitudes including units and uncertainties.
+The package ``physical-magnitude`` allows to perform simple operations with magnitudes including units and uncertainties.
 It allows to define magnitudes with value, uncertainty and unit.
 It allows to compute simple operations providing the result not only for the magnitude value,
 but also its uncertainty and unit.
@@ -14,11 +14,27 @@ Available operations include summation, subtraction, multiplication and division
 
 ## Installation
 
-``magnitudes`` can be installed via pip after downloading the package from GitHub:
+``physical-magnitude`` can be installed in three different ways.
+
+Install via pip after downloading the package from GitHub:
+
+Install via pip from PyPi-like server:
 
 ```bash
-git clone git@github.com:xandratxan/magnitudes.git
-cd magnitudes
+pip install physical-magnitude --extra-index-url https://xandratxan.github.io/python-package-server/
+```
+
+Install via pip with GitHub repository url:
+
+```bash
+pip install git+https://github.com/xandratxan/physical-magnitude.git#egg=physical-magnitude
+```
+
+Clone GitHub repository and install via pip:
+
+```bash
+git clone git@github.com:xandratxan/physical-magnitude.git
+cd physical-magnitude
 pip install .
 ```
 
@@ -28,8 +44,8 @@ pip install .
 from magnitude import Magnitude
 
 # Define magnitudes
-m1 = Magnitude(value=10, unit='m', uncertainty=1)
-m2 = Magnitude(value=20, unit='m', uncertainty=2)
+m1 = Magnitude(value=10, uncertainty=1, unit='m')
+m2 = Magnitude(value=20, uncertainty=2, unit='m')
 print(f'm1: {m1}')
 print(f'm2: {m2}\n')
 
