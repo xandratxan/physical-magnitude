@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../../src/'))
 
-project = 'Magnitudes'
+project = 'physical-magnitude'
 copyright = '2023, Xandra Campo'
 author = 'Xandra Campo'
 release = '0.0.1'

@@ -9,12 +9,6 @@ Magnitude :
 from math import sqrt
 
 
-# TODO: Update documentation:
-# TODO: Update README
-# TODO: Update MyGitHubPage: physical magnitude page
-# TODO: Update documentation: tutorial
-# TODO: Update documentation: how-to
-# TODO: Update documentation: api
 class Magnitude:
     """
     Class to perform simple operations with magnitudes including units and uncertainties.
