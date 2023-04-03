@@ -2,13 +2,12 @@
 
 > Simple operations with magnitudes including units and uncertainties.
 
-| Last version: 0.1.0| Source code: [GitHub](https://github.com/xandratxan/physical-magnitude) | Issues: [GitHub](https://github.com/xandratxan/physical-magnitude/issues) |
-|------------------------------|------------------------------|------------------------------|
-| **Last release: March 2023** | **Documentation : [GitHub Pages](https://xandratxan.github.io/metpy/docs/physical-magnitude/index.html)** | **License: GNU GPL 3.0**|
+| Last version: 0.1.0 | License: GNU GPL 3.0 | [Source code](https://github.com/xandratxan/physical-magnitude) | [Issues](https://github.com/xandratxan/physical-magnitude/issues) | [Documentation](https://xandratxan.github.io/metpy/docs/physical-magnitude/index.html) |
+|--------------------|--------------------|--------------------|--------------------|--------------------|
 
 > **WARNING**: This package is under active development. The current version is considered non-stable..
 
-This package allows to perform simple operations with magnitudes including units and uncertainties. It allows to define magnitudes with value, uncertainty and unit. It allows to compute simple operations providing the result not only for the magnitude value, but also its uncertainty and unit.Available operations include summation, subtraction, multiplication and division.
+Package physical-magnitude allows to perform simple operations with magnitudes including units and uncertainties. It allows to define magnitudes with value, uncertainty and unit. It allows to compute simple operations providing the result not only for the magnitude value, but also its uncertainty and unit. Available operations include summation, subtraction, multiplication and division.
 
 ## Installation
 
@@ -88,7 +87,7 @@ Divide: 2.0 ± 0.0282842712474619  (1.4142135623730951%)
 ## Release History
 
 * 0.1.0
-    * First release
+    * Initial release
 
 
 ## Authors and contributors
@@ -96,6 +95,7 @@ Divide: 2.0 ± 0.0282842712474619  (1.4142135623730951%)
 Author:
 : Xandra Campo,
 [@GitHub](https://github.com/xandratxan/)
-[@GitHub Pages](https://xandratxan.github.io/),
-xkmpera@gmail.com
 
+Contributors:
+: Ricardo Gomez,
+[@GitHub](https://github.com/ricargoes/)
