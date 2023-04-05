@@ -2,7 +2,7 @@
 
 > Simple operations with magnitudes including units and uncertainties.
 
-| Last version: 0.1.0 | License: GNU GPL 3.0 | [Source code](https://github.com/xandratxan/physical-magnitude) | [Issues](https://github.com/xandratxan/physical-magnitude/issues) | [Documentation](https://xandratxan.github.io/metpy/docs/physical-magnitude/index.html) |
+| Last version: 0.0.1 | License: GNU GPL 3.0 | [Source code](https://github.com/xandratxan/physical-magnitude) | [Issues](https://github.com/xandratxan/physical-magnitude/issues) | [Documentation](https://xandratxan.github.io/metpy/docs/physical-magnitude/index.html) |
 |--------------------|--------------------|--------------------|--------------------|--------------------|
 
 > **WARNING**: This package is under active development. The current version is considered non-stable..
@@ -76,17 +76,17 @@ Sum: 300.0 ± 2.23606797749979 m (0.74535599249993%)
 
 Subtract: 100.0 ± 2.23606797749979 m (2.23606797749979%))
 
-Multiply: 20000.0 ± 282.842712474619 (m)·(m) (1.4142135623730951%)
+Multiply: 20000.0 ± 282.842712474619 (m·m) (1.4142135623730951%)
 Multiply: 20000.0 ± 282.842712474619 m² (1.4142135623730951%)
 
-Divide: 2.0 ± 0.0282842712474619 (m)/(m) (1.4142135623730951%)
+Divide: 2.0 ± 0.0282842712474619 (m/m) (1.4142135623730951%)
 Divide: 2.0 ± 0.0282842712474619  (1.4142135623730951%)
 ```
 
 
 ## Release History
 
-* 0.1.0
+* 0.0.1
     * Initial release
 
 
