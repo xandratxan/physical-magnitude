@@ -11,7 +11,7 @@ import sys
 project = 'physical-magnitude'
 copyright = '2023, Xandra Campo'
 author = 'Xandra Campo'
-release = '0.1.0'
+release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
