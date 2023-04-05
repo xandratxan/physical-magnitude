@@ -102,7 +102,7 @@ class Magnitude:
     def __mul__(self, other):
         """The unit resulting from the product will be the concatenation of the individual magnitude units."""
         value = self.value * other.value
-        unit = f'({self.unit})·({other.unit})'
+        unit = f'({self.unit}·{other.unit})'
         relative_uncertainty = sqrt(self.relative_uncertainty() ** 2 + other.relative_uncertainty() ** 2)
         magnitude = Magnitude(value=value, uncertainty=relative_uncertainty, unit=unit, relative_uncertainty=True)
         return magnitude
@@ -110,7 +110,7 @@ class Magnitude:
     def __truediv__(self, other):
         """The unit resulting from the division will be the concatenation of the individual magnitude units."""
         value = self.value / other.value
-        unit = f'({self.unit})/({other.unit})'
+        unit = f'({self.unit}/{other.unit})'
         relative_uncertainty = sqrt(self.relative_uncertainty() ** 2 + other.relative_uncertainty() ** 2)
         magnitude = Magnitude(value=value, uncertainty=relative_uncertainty, unit=unit, relative_uncertainty=True)
         return magnitude
