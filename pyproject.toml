@@ -10,7 +10,7 @@ requires-python = ">=3.7"
 license = "GPL-3.0-only"
 keywords = []
 dependencies = []
-version = "0.1.0"
+version = "0.0.1"
 
 [project.urls]
 Documentation = "https://github.com/xandratxan/physical-magnitude#readme"
